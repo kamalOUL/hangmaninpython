@@ -1,55 +1,32 @@
+import string
 import random
-from random import choice
 
+chars= " " + string.digits + string.punctuation + string.ascii_letters
+chars=list(chars)
+key=chars.copy()
 
-def spin_row():
-    symbols =['🍒','🍉','🍋','🔔','⭐']
-    return [random.choice(symbols) for symbol in range(3)]
-def print_row(row):
-    print(" ".join(row))
-def get_payout(row,bet):
-    if row[0]==row[1]==row[2]:
-      if row[0]=='🍒':
-          return bet*3
-      elif row[0]== '🍉':
-          return bet*4
-      elif row[0]== '🍋':
-          return bet*4
-      elif row[0]== '🔔':
-          return bet*5
-      elif row[0]=='⭐':
-          return bet*6
-    return 0
+random.shuffle(key)
 
-def main():
-    balance = 100
-    print("Welcome to Phyton slots ")
-    while balance > 0:
-        print(f"current balance is {balance}")
-        bet= input("place your bet amount: ")
-        if not bet.isdigit() :
-            print("Please enter a numeric value")
-        bet=int(bet)
-        if bet>balance :
-            print("You don't have enough money")
-            continue
-        if bet<=0:
-            print("bet must be greater than 0")
-            continue
-        balance-=bet
-        row = spin_row()
-        print("spinning....\n")
-        print_row(row)
-        payout = get_payout(row,bet)
-        if payout>0:
-            print("congrats you won")
-        else:
-            print("you lost this spin")
-        balance+=payout
-        play_again = input("play again? (y/n): ").lower()
-        if play_again != 'y':
-          break
-        print(f"Thank you for playing your final balance is {balance}")
+#print(f"chars: {chars}")
+#print(f"key  : {key}")
 
-if __name__ == '__main__':
-    main()
+#ENCRYPT
+plain_text = input("Enter a message to encrypt: ")
+cipher_text = ""
+
+for letter in plain_text:
+    index = chars.index(letter)
+    cipher_text += key[index]
+print(f"original text: {plain_text}")
+print(f"Cipher text  : {cipher_text}")
+
+#DECRYPT
+
+cipher_text1 = input("Enter a message to decrypt: ")
+paint_text1 = ""
+
+for x in cipher_text1:
+    index1 = key.index(x)
+    paint_text1 += chars[index1]
+print(f"decrypted text: {cipher_text1}")
+print(f"original text : {paint_text1}")
